@@ -110,6 +110,19 @@ vt_output_body() {
 	atf_check -s ignore -o file:$(atf_get_srcdir)/d_vt_output.out \
 		cat -vt $(atf_get_srcdir)/d_vt_output.in
 }
+
+atf_test_case stdin_test
+stdin_test_head() {
+	atf_set "descr" "Test that cat(1) receives data from stdin " \
+			"and outputs."
+}
+
+stdin_test_body() {
+	echo "This is nothing but a cat test." | \
+			atf_check -s ignore -o file:$(atf_get_srcdir)/stdin_test.out \
+			cat
+
+}
 # End FreeBSD
 
 atf_init_test_cases()
@@ -124,5 +137,6 @@ atf_init_test_cases()
 	atf_add_test_case s_output
 	atf_add_test_case e_output
 	atf_add_test_case vt_output
+	atf_add_test_case stdin_test
 # End FreeBSD
 }

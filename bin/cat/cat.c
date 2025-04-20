@@ -37,9 +37,6 @@
 #endif /* ! __APPLE__ */
 #include <sys/param.h>
 #include <sys/stat.h>
-#ifdef __APPLE__
-#include <copyfile.h>
-#endif /* __APPLE__ */
 #ifndef NO_UDOM_SUPPORT
 #include <sys/socket.h>
 #include <sys/un.h>
@@ -429,11 +426,9 @@ in_kernel_copy(int rfd)
 	wfd = fileno(stdout);
 	ret = 1;
 
-	while (ret > 0)
 #ifndef __APPLE__
+	while (ret > 0)
 		ret = copy_file_range(rfd, NULL, wfd, NULL, SSIZE_MAX, 0);
-#else /* __APPLE__ */
-		ret = fcopyfile(rfd, wfd, NULL, COPYFILE_CLONE | COPYFILE_ALL);
 #endif /* ! __APPLE__ */
 
 	return (ret);
