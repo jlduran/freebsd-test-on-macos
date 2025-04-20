@@ -36,3 +36,8 @@ jobs:
           PATH="${script_dir}:$PATH"
           }' cat_test
           sudo /opt/local/bin/kyua test
+      - name: upload kyua test
+        if: failure()
+        run: |
+          cd outputs/cat
+          sudo /opt/local/bin/kyua report --results-file=LATEST --results-filter=failed --verbose
