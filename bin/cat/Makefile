@@ -6,7 +6,7 @@ PROG=	cat
 .ifdef BOOTSTRAPPING
 # For the bootstrap cat we disable all wide char support to allow building
 # on Linux/macOS
-CFLAGS+=-DBOOTSTRAP_CAT -Wno-nullability-completeness -Wno-expansion-to-defined
+CFLAGS+=-DBOOTSTRAP_CAT
 .endif
 
 HAS_TESTS=
